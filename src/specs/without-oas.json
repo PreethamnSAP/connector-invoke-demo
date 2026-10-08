@@ -1,0 +1,5 @@
+{
+  "operationId": "createCampaign",
+  "summary": "Create Campaign",
+  "fields": []
+}

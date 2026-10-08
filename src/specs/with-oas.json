@@ -1,0 +1,184 @@
+{
+  "operationId": "createCampaign",
+  "summary": "Create Campaign",
+  "fields": [
+    {
+      "name": "type",
+      "label": "Campaign Type",
+      "type": "select",
+      "required": true,
+      "description": "The type of campaign to create.",
+      "options": ["regular", "plaintext", "absplit", "rss", "variate"]
+    },
+    {
+      "name": "content_type",
+      "label": "Content Type",
+      "type": "select",
+      "required": false,
+      "description": "How the campaign's content is put together.",
+      "options": ["template", "multichannel"]
+    },
+    {
+      "name": "recipients.list_id",
+      "label": "Audience List ID",
+      "type": "text",
+      "required": true,
+      "placeholder": "e.g. 12f283db3b",
+      "description": "The unique list id for the campaign recipients."
+    },
+    {
+      "name": "settings.subject_line",
+      "label": "Subject Line",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. Automation Test Campaign",
+      "description": "The subject line for the campaign."
+    },
+    {
+      "name": "settings.preview_text",
+      "label": "Preview Text",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. Up to 50% off this weekend only",
+      "description": "The preview text for the campaign."
+    },
+    {
+      "name": "settings.from_name",
+      "label": "From Name",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. SAP-Mailchimp-Validations",
+      "description": "The 'from' name on the campaign (not an email address)."
+    },
+    {
+      "name": "settings.reply_to",
+      "label": "Reply-To Address",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. proj-aif-sapintegrations-validation@wisertech.com",
+      "description": "The reply-to email address for the campaign."
+    },
+    {
+      "name": "settings.title",
+      "label": "Campaign Title (Internal)",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. Automation Test Campaign",
+      "description": "The title of the campaign, used internally."
+    }
+  ],
+  "advancedGroups": [
+    {
+      "key": "variate_settings",
+      "label": "A/B Test Options",
+      "description": "Settings specific to A/B split (variate) campaigns.",
+      "showFor": ["absplit", "variate"],
+      "fields": [
+        {
+          "name": "variate_settings.winner_criteria",
+          "label": "Winning Criteria",
+          "type": "select",
+          "required": true,
+          "description": "How to determine the winning combination.",
+          "options": ["opens", "clicks", "manual", "total_revenue"]
+        },
+        {
+          "name": "variate_settings.wait_time",
+          "label": "Wait Time (minutes)",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g. 60",
+          "description": "Minutes to wait before choosing the winning campaign."
+        },
+        {
+          "name": "variate_settings.test_size",
+          "label": "Test Size (%)",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g. 10",
+          "description": "Percentage of recipients to send test combinations to (10–100)."
+        }
+      ]
+    },
+    {
+      "key": "rss_opts",
+      "label": "RSS Options",
+      "description": "Required for RSS campaigns only.",
+      "showFor": ["rss"],
+      "fields": [
+        {
+          "name": "rss_opts.feed_url",
+          "label": "Feed URL",
+          "type": "text",
+          "required": true,
+          "placeholder": "e.g. https://example.com/feed.rss",
+          "description": "The URL for the RSS feed."
+        },
+        {
+          "name": "rss_opts.frequency",
+          "label": "Frequency",
+          "type": "select",
+          "required": true,
+          "description": "The frequency of the RSS Campaign.",
+          "options": ["daily", "weekly", "monthly"]
+        }
+      ]
+    },
+    {
+      "key": "tracking",
+      "label": "Tracking Options",
+      "description": "Campaign tracking settings.",
+      "showFor": ["regular", "plaintext", "absplit", "variate"],
+      "fields": [
+        {
+          "name": "tracking.google_analytics",
+          "label": "Google Analytics Tracking",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g. my-campaign-2026",
+          "description": "The custom slug for Google Analytics tracking."
+        },
+        {
+          "name": "tracking.clicktale",
+          "label": "ClickTale Analytics Tracking",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g. my-campaign",
+          "description": "The custom slug for ClickTale tracking."
+        }
+      ]
+    },
+    {
+      "key": "social_card",
+      "label": "Social Card",
+      "description": "Preview card shown when sharing on social media.",
+      "showFor": ["regular", "plaintext"],
+      "fields": [
+        {
+          "name": "social_card.image_url",
+          "label": "Image URL",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g. https://example.com/image.png",
+          "description": "The URL for the social card image."
+        },
+        {
+          "name": "social_card.title",
+          "label": "Title",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g. Summer Sale 2026",
+          "description": "The title for the social card."
+        },
+        {
+          "name": "social_card.description",
+          "label": "Description",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g. Check out our latest campaign",
+          "description": "A short description for the social card."
+        }
+      ]
+    }
+  ]
+}
