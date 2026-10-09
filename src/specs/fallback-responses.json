@@ -1,0 +1,208 @@
+{
+  "regular": {
+    "id": "fca0438127",
+    "web_id": 7068235,
+    "type": "regular",
+    "create_time": "2026-10-09T05:22:52+00:00",
+    "archive_url": "http://eepurl.com/bHsIeKZm9M",
+    "long_archive_url": "https://us16.campaign-archive.com/?u=7d15ecc38fe9fe21b931a0a02&id=fca0438127",
+    "status": "save",
+    "emails_sent": 0,
+    "send_time": "",
+    "content_type": "template",
+    "needs_block_refresh": false,
+    "resendable": false,
+    "recipients": {
+      "list_id": "12f283db3b",
+      "list_is_active": true,
+      "list_name": "SAP-Mailchimp-Validations",
+      "segment_text": "",
+      "recipient_count": 1
+    },
+    "settings": {
+      "subject_line": "SAP Integration Suite — October Newsletter",
+      "preview_text": "What's new in SAP Integration Suite this month",
+      "title": "October Newsletter 2026",
+      "from_name": "SAP-Mailchimp-Validations",
+      "reply_to": "proj-aif-sapintegrations-validation@wisertech.com",
+      "use_conversation": false,
+      "to_name": "",
+      "folder_id": "",
+      "authenticate": true,
+      "auto_footer": false,
+      "inline_css": false,
+      "auto_tweet": false,
+      "fb_comments": true,
+      "timewarp": false,
+      "template_id": 0,
+      "drag_and_drop": false
+    },
+    "tracking": {
+      "opens": true,
+      "html_clicks": true,
+      "text_clicks": false,
+      "goal_tracking": false,
+      "ecomm360": false,
+      "google_analytics": "",
+      "clicktale": ""
+    },
+    "delivery_status": {
+      "enabled": false
+    }
+  },
+  "plaintext": {
+    "id": "a1b2c3d4e5",
+    "web_id": 7068300,
+    "type": "plaintext",
+    "create_time": "2026-10-09T05:22:52+00:00",
+    "archive_url": "http://eepurl.com/plaintext-demo",
+    "status": "save",
+    "emails_sent": 0,
+    "send_time": "",
+    "content_type": "template",
+    "needs_block_refresh": false,
+    "resendable": false,
+    "recipients": {
+      "list_id": "12f283db3b",
+      "list_is_active": true,
+      "list_name": "SAP-Mailchimp-Validations",
+      "segment_text": "",
+      "recipient_count": 1
+    },
+    "settings": {
+      "subject_line": "Plain Text Announcement — SAP Integration Suite",
+      "title": "Plain Text Campaign 2026",
+      "from_name": "SAP-Mailchimp-Validations",
+      "reply_to": "proj-aif-sapintegrations-validation@wisertech.com",
+      "use_conversation": false,
+      "authenticate": true,
+      "auto_footer": false,
+      "inline_css": false,
+      "timewarp": false,
+      "template_id": 0,
+      "drag_and_drop": false
+    },
+    "tracking": {
+      "opens": true,
+      "html_clicks": true,
+      "text_clicks": false,
+      "goal_tracking": false,
+      "ecomm360": false
+    },
+    "delivery_status": {
+      "enabled": false
+    }
+  },
+  "absplit": {
+    "id": "b2c3d4e5f6",
+    "web_id": 7068400,
+    "type": "absplit",
+    "create_time": "2026-10-09T05:22:52+00:00",
+    "status": "save",
+    "emails_sent": 0,
+    "send_time": "",
+    "content_type": "template",
+    "needs_block_refresh": false,
+    "resendable": false,
+    "recipients": {
+      "list_id": "12f283db3b",
+      "list_is_active": true,
+      "list_name": "SAP-Mailchimp-Validations",
+      "recipient_count": 1
+    },
+    "settings": {
+      "subject_line": "Which subject line wins?",
+      "title": "A/B Split Test Campaign 2026",
+      "from_name": "SAP-Mailchimp-Validations",
+      "reply_to": "proj-aif-sapintegrations-validation@wisertech.com",
+      "authenticate": true
+    },
+    "variate_settings": {
+      "winner_criteria": "opens",
+      "wait_time": 60,
+      "test_size": 20
+    },
+    "tracking": {
+      "opens": true,
+      "html_clicks": true,
+      "text_clicks": false
+    },
+    "delivery_status": {
+      "enabled": false
+    }
+  },
+  "rss": {
+    "id": "c3d4e5f6a7",
+    "web_id": 7068500,
+    "type": "rss",
+    "create_time": "2026-10-09T05:22:52+00:00",
+    "status": "save",
+    "emails_sent": 0,
+    "send_time": "",
+    "content_type": "template",
+    "needs_block_refresh": false,
+    "resendable": false,
+    "recipients": {
+      "list_id": "12f283db3b",
+      "list_is_active": true,
+      "list_name": "SAP-Mailchimp-Validations",
+      "recipient_count": 1
+    },
+    "settings": {
+      "subject_line": "Latest from SAP Blog",
+      "title": "SAP Blog RSS Campaign",
+      "from_name": "SAP-Mailchimp-Validations",
+      "reply_to": "proj-aif-sapintegrations-validation@wisertech.com",
+      "authenticate": true
+    },
+    "rss_opts": {
+      "feed_url": "https://blogs.sap.com/feed/",
+      "frequency": "weekly",
+      "schedule": {
+        "hour": 8,
+        "weekly_send_day": "monday"
+      }
+    },
+    "delivery_status": {
+      "enabled": false
+    }
+  },
+  "variate": {
+    "id": "d4e5f6a7b8",
+    "web_id": 7068600,
+    "type": "variate",
+    "create_time": "2026-10-09T05:22:52+00:00",
+    "status": "save",
+    "emails_sent": 0,
+    "send_time": "",
+    "content_type": "template",
+    "needs_block_refresh": false,
+    "resendable": false,
+    "recipients": {
+      "list_id": "12f283db3b",
+      "list_is_active": true,
+      "list_name": "SAP-Mailchimp-Validations",
+      "recipient_count": 1
+    },
+    "settings": {
+      "subject_line": "SAP Integration Suite — Variate Test",
+      "title": "Variate Campaign 2026",
+      "from_name": "SAP-Mailchimp-Validations",
+      "reply_to": "proj-aif-sapintegrations-validation@wisertech.com",
+      "authenticate": true
+    },
+    "variate_settings": {
+      "winner_criteria": "clicks",
+      "wait_time": 120,
+      "test_size": 10
+    },
+    "tracking": {
+      "opens": true,
+      "html_clicks": true,
+      "text_clicks": false
+    },
+    "delivery_status": {
+      "enabled": false
+    }
+  }
+}

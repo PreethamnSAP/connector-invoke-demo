@@ -97,8 +97,7 @@ body {
 .inst-row-clickable { cursor: pointer; transition: background .1s; }
 .inst-row-clickable:hover { background: #F5F6F7 !important; }
 .inst-row-selected { background: #F2F8FF !important; }
-.inst-row-selected td { border-left: 0; }
-.inst-row-selected:first-child td:first-child { border-left: 3px solid #0070F2; }
+.inst-row-selected td:first-child { border-left: 3px solid #0070F2; }
 
 .inst-name-cell {
   display: flex;
@@ -423,7 +422,35 @@ body {
   color: #1D2D3E;
 }
 
-/* ── Invoke layout ───────────────────────────────────────────── */
+/* ── Invoke URL bar ──────────────────────────────────────────── */
+.invoke-url-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: #F5F6F7;
+  border-bottom: 1px solid #E8ECF0;
+}
+
+.invoke-url-method {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: #D6EAF8;
+  color: #0070F2;
+  letter-spacing: .3px;
+  flex-shrink: 0;
+}
+
+.invoke-url-text {
+  font-size: 12px;
+  font-family: 'Menlo', 'Consolas', monospace;
+  color: #556B82;
+  word-break: break-all;
+}
+
+
 .invoke-layout {
   display: flex;
   gap: 16px;
@@ -580,7 +607,7 @@ body {
   color: #1D2D3E;
 }
 
-.req { color: #556B82; }
+.req { color: #D93025; }
 
 .field-input {
   padding: 7px 10px;
@@ -789,8 +816,41 @@ select.field-input {
   color: #0070F2;
 }
 
+/* ── Raw payload section ─────────────────────────────────────── */
+.payload-section {
+  border-top: 1px solid #E8ECF0;
+  padding: 10px 20px 16px;
+}
+
+.payload-toggle {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 12px;
+  color: #8696A9;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.payload-toggle:hover { color: #556B82; }
+
+.payload-pre {
+  margin-top: 10px;
+  background: #1D2D3E;
+  color: #E8ECF0;
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 14px 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  white-space: pre;
+}
+
 .btn-ghost {
-  margin: 14px;
   padding: 7px 18px;
   background: transparent;
   color: #0070F2;
