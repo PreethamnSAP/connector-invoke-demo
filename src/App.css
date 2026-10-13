@@ -603,7 +603,7 @@ body {
 
 .field-label {
   font-size: 12.5px;
-  font-weight: 500;
+  font-weight: 700;
   color: #1D2D3E;
 }
 
@@ -802,7 +802,7 @@ select.field-input {
 
 .resp-key {
   padding: 8px 12px;
-  font-weight: 500;
+  font-weight: 700;
   font-family: 'Menlo', monospace;
   color: #556B82;
   background: #F5F6F7;
@@ -816,7 +816,37 @@ select.field-input {
   color: #0070F2;
 }
 
-/* ── Raw payload section ─────────────────────────────────────── */
+/* ── Response skeleton ───────────────────────────────────────── */
+.resp-skeleton-row { opacity: 1; }
+.resp-skeleton-val { color: #C0C8D2 !important; font-style: normal; }
+
+.resp-loading-inline {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #8696A9;
+  font-style: italic;
+}
+
+.resp-skeleton-loading {
+  color: #D5DCE4 !important;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.resp-status-inline {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #1A7F4B;
+  background: #E6F4ED;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+
 .payload-section {
   border-top: 1px solid #E8ECF0;
   padding: 10px 20px 16px;

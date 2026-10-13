@@ -119,20 +119,6 @@ function AdvancedGroup({ group, values, onChange }) {
   )
 }
 
-function ResponseTable({ data, prefix }) {
-  return Object.entries(data).map(([k, v]) => {
-    const key = prefix ? `${prefix}.${k}` : k
-    if (v !== null && typeof v === 'object' && !Array.isArray(v)) {
-      return <ResponseTable key={key} data={v} prefix={key} />
-    }
-    return (
-      <tr key={key}>
-        <td className="resp-key">{key}</td>
-        <td className="resp-val">{Array.isArray(v) ? JSON.stringify(v) : String(v)}</td>
-      </tr>
-    )
-  })
-}
 
 // ── Request panel (left) ──────────────────────────────────────────
 function RequestPanel({ spec, hasOas, onSubmit, loading, values, onValuesChange }) {
@@ -236,39 +222,67 @@ function TreeNode({ label, hint, children, defaultOpen = false }) {
 }
 
 // ── Response panel (right) ────────────────────────────────────────
-function ResponsePanel({ submitted, response, error, loading, onReset }) {
-  return (
-    <div className="panel panel-response">
-      <div className="panel-head">
-        <span className="badge">Response</span>
-      </div>
-      {loading ? (
-        <div className="resp-empty">
-          <div className="resp-empty-icon">◎</div>
-          <div>Calling connector instance…</div>
-        </div>
-      ) : error ? (
-        <div className="resp-empty">
-          <div style={{ color: '#D93025', fontSize: 13 }}>Error: {error}</div>
-          <button className="btn-ghost" style={{ marginTop: 12 }} onClick={onReset}>Try Again</button>
-        </div>
-      ) : !submitted ? (
+function flattenResponse(data, prefix = '') {
+  const rows = []
+  for (const [k, v] of Object.entries(data)) {
+    const key = prefix ? `${prefix}.${k}` : k
+    if (v !== null && typeof v === 'object' && !Array.isArray(v)) {
+      rows.push(...flattenResponse(v, key))
+    } else {
+      rows.push([key, Array.isArray(v) ? JSON.stringify(v) : String(v ?? '')])
+    }
+  }
+  return rows
+}
+
+function ResponsePanel({ submitted, response, loading, onReset, hasOas, selectedType }) {
+  const skeletonKeys = flattenResponse(
+    fallbackResponses[selectedType] || fallbackResponses['regular']
+  ).map(([k]) => k)
+  if (!hasOas) {
+    return (
+      <div className="panel panel-response">
+        <div className="panel-head"><span className="badge">Response</span></div>
         <div className="resp-empty">
           <div className="resp-empty-icon">◎</div>
           <div>Run the request to see the response</div>
         </div>
-      ) : (
-        <div className="panel-body">
-          <div className="resp-status">
-            <span className="resp-dot" />
-            200 OK — Campaign created successfully
-          </div>
-          <table className="resp-table">
-            <tbody><ResponseTable data={response} /></tbody>
-          </table>
+      </div>
+    )
+  }
+
+  const flatRows = submitted && response ? flattenResponse(response) : null
+
+  return (
+    <div className="panel panel-response">
+      <div className="panel-head">
+        <span className="badge">Response</span>
+        {loading && <span className="resp-loading-inline">Calling connector instance…</span>}
+        {submitted && !loading && <span className="resp-status-inline">200 OK</span>}
+      </div>
+      <div className="panel-body">
+        <table className="resp-table">
+          <tbody>
+            {submitted && flatRows
+              ? flatRows.map(([k, v]) => (
+                  <tr key={k}>
+                    <td className="resp-key">{k}</td>
+                    <td className="resp-val">{v}</td>
+                  </tr>
+                ))
+              : skeletonKeys.map(k => (
+                  <tr key={k} className="resp-skeleton-row">
+                    <td className="resp-key">{k}</td>
+                    <td className={`resp-val ${loading ? 'resp-skeleton-loading' : 'resp-skeleton-val'}`}>—</td>
+                  </tr>
+                ))
+            }
+          </tbody>
+        </table>
+        {submitted && !loading && (
           <button className="btn-ghost" onClick={onReset}>Try Again</button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
@@ -282,7 +296,6 @@ export default function App() {
   const [submitted, setSubmitted] = useState(false)
   const [response, setResponse] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
   const [showPayload, setShowPayload] = useState(false)
 
   const selectInst = (inst) => {
@@ -290,13 +303,11 @@ export default function App() {
     setValues(inst.hasOas ? PRE_FILL_BY_TYPE.regular : {})
     setSubmitted(false)
     setResponse(null)
-    setError(null)
     setShowPayload(false)
   }
 
   const handleRun = async () => {
     setLoading(true)
-    setError(null)
     try {
       const res = await fetch('http://localhost:3001/invoke', {
         method: 'POST',
@@ -322,7 +333,7 @@ export default function App() {
     }
   }
 
-  const handleReset = () => { setSubmitted(false); setResponse(null); setError(null) }
+  const handleReset = () => { setSubmitted(false); setResponse(null) }
 
   return (
     <div className="app">
@@ -388,9 +399,10 @@ export default function App() {
                 <ResponsePanel
                   submitted={submitted}
                   response={response}
-                  error={error}
                   loading={loading}
                   onReset={handleReset}
+                  hasOas={selectedInst.hasOas}
+                  selectedType={values['type'] || 'regular'}
                 />
               </div>
             </div>
