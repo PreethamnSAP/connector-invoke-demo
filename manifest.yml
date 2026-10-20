@@ -1,0 +1,13 @@
+applications:
+  - name: connector-invoke-demo
+    memory: 256M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: node server.js
+    env:
+      NODE_ENV: production
+      URL_WITH_OAS: ""
+      URL_WITHOUT_OAS: ""
+      BASIC_USER: ""
+      BASIC_PASS: ""
