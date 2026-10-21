@@ -1,0 +1,56 @@
+{
+  "operationId": "updateCampaign",
+  "summary": "Update Campaign",
+  "fields": [
+    {
+      "name": "settings.subject_line",
+      "label": "Subject Line",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. Updated Subject Line",
+      "description": "The subject line for the campaign."
+    },
+    {
+      "name": "settings.preview_text",
+      "label": "Preview Text",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. Preview of the campaign",
+      "description": "The preview text for the campaign."
+    },
+    {
+      "name": "settings.from_name",
+      "label": "From Name",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. SAP-Mailchimp-Validations",
+      "description": "The from name on the campaign."
+    },
+    {
+      "name": "settings.reply_to",
+      "label": "Reply-To Address",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. proj-aif-sapintegrations-validation@wisertech.com",
+      "description": "The reply-to email address for the campaign."
+    },
+    {
+      "name": "settings.title",
+      "label": "Campaign Title (Internal)",
+      "type": "text",
+      "required": false,
+      "placeholder": "e.g. Updated Campaign Title",
+      "description": "The title of the campaign, used internally."
+    }
+  ],
+  "configureFields": [
+    {
+      "name": "configure.resourceId",
+      "label": "Campaign ID",
+      "type": "text",
+      "required": true,
+      "placeholder": "e.g. fca0438127",
+      "description": "The unique id for the campaign to update."
+    }
+  ]
+}

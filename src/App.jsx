@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import withOasSpec from './specs/with-oas.json'
-import withoutOasSpec from './specs/without-oas.json'
+import withOasUpdateSpec from './specs/with-oas-update.json'
+import withoutOasUpdateSpec from './specs/without-oas-update.json'
 import fallbackResponses from './specs/fallback-responses.json'
 import './App.css'
 
@@ -12,8 +12,8 @@ const CONNECTORS = [
     icon: 'M',
     category: 'Marketing',
     instances: [
-      { id: 'without-oas', name: 'Mailchimp — Create Campaign — Without OAS', hasOas: false, spec: withoutOasSpec, url: 'https://connector-automation.it-acfun002-rt.internal.cfapps.eu12.hana.ondemand.com/http/Mailchimp_-_Create_Campaign_-_Without_OAS/*' },
-      { id: 'with-oas',    name: 'Mailchimp — Create Campaign — With OAS',    hasOas: true,  spec: withOasSpec,    url: 'https://connector-automation.it-acfun002-rt.internal.cfapps.eu12.hana.ondemand.com/http/Mailchimp_CreateCampaign_With_OAS/*' },
+      { id: 'without-oas-update', name: 'Mailchimp — Update Campaign — Without OAS', hasOas: false, spec: withoutOasUpdateSpec, url: 'https://connector-automation.it-acfun002-rt.internal.cfapps.eu12.hana.ondemand.com/http/Mailchimp_-_Update_Campaign_-_Without_OAS/*' },
+      { id: 'with-oas-update',    name: 'Mailchimp — Update Campaign — With OAS',    hasOas: true,  spec: withOasUpdateSpec,    url: 'https://connector-automation.it-acfun002-rt.internal.cfapps.eu12.hana.ondemand.com/http/Mailchimp_UpdateCampaign_With_OAS_v2/*' },
     ],
   },
 ]
@@ -70,6 +70,15 @@ const PRE_FILL_BY_TYPE = {
     'variate_settings.wait_time': '120',
     'variate_settings.test_size': '10',
   },
+}
+
+const PRE_FILL_UPDATE = {
+  'configure.resourceId': 'fca0438127',
+  'settings.subject_line': 'SAP Integration Suite — October Newsletter (Updated)',
+  'settings.preview_text': 'Updated preview for October Newsletter',
+  'settings.from_name': 'SAP-Mailchimp-Validations',
+  'settings.reply_to': 'proj-aif-sapintegrations-validation@wisertech.com',
+  'settings.title': 'October Newsletter 2026 (Updated)',
 }
 
 function expand(flat) {
@@ -190,7 +199,19 @@ function RequestPanel({ spec, hasOas, onSubmit, loading, values, onValuesChange 
               )
             })()}
           </TreeNode>
-          <TreeNode label="configure" hint="No schema defined" />
+          <TreeNode label="configure" hint={spec.configureFields?.length ? 'Expand to fill configure fields' : 'No schema defined'} defaultOpen={!!spec.configureFields?.length}>
+            {spec.configureFields?.length > 0
+              ? spec.configureFields.map(f => (
+                  <div key={f.name} className="field-row">
+                    <label className="field-label" htmlFor={f.name}>
+                      {f.label}{f.required && <span className="req"> *</span>}
+                    </label>
+                    <input id={f.name} type="text" className="field-input" placeholder={f.placeholder} value={values[f.name] || ''} onChange={e => handleChange(f.name, e.target.value)} />
+                  </div>
+                ))
+              : null
+            }
+          </TreeNode>
         </div>
         <div className="form-footer">
           <button type="submit" className="btn-primary" disabled={loading}>
@@ -292,7 +313,7 @@ const CONNECTOR = CONNECTORS[0]
 
 export default function App() {
   const [selectedInst, setSelectedInst] = useState(null)
-  const [values, setValues] = useState(PRE_FILL_BY_TYPE.regular)
+  const [values, setValues] = useState(PRE_FILL_UPDATE)
   const [submitted, setSubmitted] = useState(false)
   const [response, setResponse] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -300,7 +321,7 @@ export default function App() {
 
   const selectInst = (inst) => {
     setSelectedInst(inst)
-    setValues(inst.hasOas ? PRE_FILL_BY_TYPE.regular : {})
+    setValues(inst.hasOas ? PRE_FILL_UPDATE : {})
     setSubmitted(false)
     setResponse(null)
     setShowPayload(false)
@@ -316,17 +337,13 @@ export default function App() {
       })
       const data = await res.json()
       if (!res.ok || data?.error) {
-        const type = values['type'] || 'regular'
-        const fallback = fallbackResponses[type] || fallbackResponses['regular']
-        setResponse(fallback)
+        setResponse(fallbackResponses['update'])
       } else {
         setResponse(data)
       }
       setSubmitted(true)
     } catch {
-      const type = values['type'] || 'regular'
-      const fallback = fallbackResponses[type] || fallbackResponses['regular']
-      setResponse(fallback)
+      setResponse(fallbackResponses['update'])
       setSubmitted(true)
     } finally {
       setLoading(false)
@@ -364,7 +381,7 @@ export default function App() {
                   onClick={() => selectInst(inst)}
                 >
                   <td className="inst-name">{inst.name}</td>
-                  <td><span className="method-badge method-post">POST</span> Create Campaign</td>
+                  <td><span className="method-badge method-post">PATCH</span> Update Campaign</td>
                   <td><span className="badge">{inst.hasOas ? 'Yes' : 'No'}</span></td>
                 </tr>
               ))}
@@ -380,7 +397,7 @@ export default function App() {
               <span>Invoke — {selectedInst.name}</span>
             </div>
             <div className="invoke-url-bar">
-              <span className="invoke-url-method">POST</span>
+              <span className="invoke-url-method">{selectedInst.id.includes('update') ? 'PATCH' : 'POST'}</span>
               <span className="invoke-url-text">{selectedInst.url}</span>
             </div>
             <div className="invoke-layout">
@@ -402,7 +419,7 @@ export default function App() {
                   loading={loading}
                   onReset={handleReset}
                   hasOas={selectedInst.hasOas}
-                  selectedType={values['type'] || 'regular'}
+                  selectedType="update"
                 />
               </div>
             </div>
@@ -415,14 +432,16 @@ export default function App() {
                 {showPayload ? '▾ Hide raw payload' : '▸ Show raw payload'}
               </button>
               {showPayload && (
-                <pre className="payload-pre">{
-                  JSON.stringify(
-                    selectedInst.hasOas
-                      ? { body: expand(values), configure: {} }
-                      : { body: {}, configure: {} },
-                    null, 2
-                  )
-                }</pre>
+                <pre className="payload-pre">{(() => {
+                  if (!selectedInst.hasOas) return JSON.stringify({ body: {}, configure: {} }, null, 2)
+                  const configureFlat = {}
+                  const bodyFlat = {}
+                  for (const [k, v] of Object.entries(values)) {
+                    if (k.startsWith('configure.')) configureFlat[k.slice('configure.'.length)] = v
+                    else bodyFlat[k] = v
+                  }
+                  return JSON.stringify({ body: expand(bodyFlat), configure: expand(configureFlat) }, null, 2)
+                })()}</pre>
               )}
             </div>
           </div>

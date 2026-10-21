@@ -204,5 +204,46 @@
     "delivery_status": {
       "enabled": false
     }
+  },
+  "update": {
+    "id": "fca0438127",
+    "web_id": 7068235,
+    "type": "regular",
+    "create_time": "2026-10-09T05:22:52+00:00",
+    "status": "save",
+    "emails_sent": 0,
+    "send_time": "",
+    "content_type": "template",
+    "needs_block_refresh": false,
+    "resendable": false,
+    "recipients": {
+      "list_id": "12f283db3b",
+      "list_is_active": true,
+      "list_name": "SAP-Mailchimp-Validations",
+      "recipient_count": 1
+    },
+    "settings": {
+      "subject_line": "SAP Integration Suite — October Newsletter (Updated)",
+      "preview_text": "Updated preview for October Newsletter",
+      "title": "October Newsletter 2026 (Updated)",
+      "from_name": "SAP-Mailchimp-Validations",
+      "reply_to": "proj-aif-sapintegrations-validation@wisertech.com",
+      "authenticate": true,
+      "auto_footer": false,
+      "inline_css": false,
+      "timewarp": false,
+      "template_id": 0,
+      "drag_and_drop": false
+    },
+    "tracking": {
+      "opens": true,
+      "html_clicks": true,
+      "text_clicks": false,
+      "goal_tracking": false,
+      "ecomm360": false
+    },
+    "delivery_status": {
+      "enabled": false
+    }
   }
 }

@@ -1,0 +1,5 @@
+{
+  "operationId": "updateCampaign",
+  "summary": "Update Campaign",
+  "fields": []
+}
