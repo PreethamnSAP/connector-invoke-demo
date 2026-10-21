@@ -7,7 +7,7 @@ applications:
     command: node server.js
     env:
       NODE_ENV: production
-      URL_WITH_OAS: ""
-      URL_WITHOUT_OAS: ""
+      URL_WITH_OAS_UPDATE: ""
+      URL_WITHOUT_OAS_UPDATE: ""
       BASIC_USER: ""
       BASIC_PASS: ""
